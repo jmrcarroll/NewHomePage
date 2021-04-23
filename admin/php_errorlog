@@ -1,0 +1,6 @@
+[22-Apr-2021 17:09:03 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function session_stop() in /home/customer/www/old.jmrcarroll.co.uk/public_html/admin/quit.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/old.jmrcarroll.co.uk/public_html/admin/quit.php on line 3
+[22-Apr-2021 17:53:56 UTC] PHP Parse error:  syntax error, unexpected ';', expecting ')' in /home/customer/www/old.jmrcarroll.co.uk/public_html/admin/newPost.php on line 21
+[22-Apr-2021 18:41:48 UTC] PHP Fatal error:  require(): Failed opening required 'static/connection.php' (include_path='.:/usr/local/php73/pear') in /home/customer/www/old.jmrcarroll.co.uk/public_html/admin/ListBlog.php on line 3

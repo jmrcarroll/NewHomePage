@@ -2,7 +2,7 @@
 include "static/template.html";
 require "static/connection.php";
 
-$sql = "SELECT * FROM blogpost;";
+$sql = "SELECT * FROM projectpost;";
 try {
     $Statement = $db->prepare($sql);
     $Statement->execute();
@@ -16,7 +16,7 @@ try {
 
 ?>
 <title> Project | John Carroll</title>
-<body onload="ActivePill('blog')">
+<body onload="ActivePill('projects')">
 <div class="container-fluid">
     <?php print $res;?>
 </div>

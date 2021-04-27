@@ -1,11 +1,11 @@
 <?php 
-require 'session.php';
+require '../session.php';
 if (!isset($_SESSION['id'])){
   header("Location:login.php");
 }
 
-include "template.html";
-require "../static/connection.php";
+include_once '../sub_template.html';
+require_once '../../static/connection.php';
         if ($_POST) {
           //https://www.tiny.cloud/tinymce/features/real-time-collaboration/?rtcId=doc_1b4g1o5b3s22var_dump($_POST);
           if(array_key_exists("isDraft",$_POST)){
@@ -16,15 +16,14 @@ require "../static/connection.php";
             echo "Submit to db for publish";
             $num = 1;
             try {
-              $query = "INSERT INTO post(title,post_text,post_type)VALUES(?,?,?)";
+              $query = "INSERT INTO project(project_name,description)VALUES(?,?)";
               $Statement = $db->prepare($query);
               $Statement->bindParam(1, $_POST["title"]);
-              $Statement->bindParam(2, $_POST['post_text']);
-              $Statement->bindParam(3, $_POST['post_type']);
+              $Statement->bindParam(2, $_POST['description']);
               $Statement->execute();
               if ($Statement->rowCount() == 1) {
                 $result = '<p style="background-color:green;">Post successful</p>';
-                header('location:index.php');
+                header('location:../index.php');
             }
 
             } catch (PDOException $ex) {
@@ -92,23 +91,7 @@ $(document).on('focusin', function(e) {
         <div class='form-group'>
           <label for="title">Title: </label>
           <input type="text" name="title" value="<?php if (array_key_exists("isPreview",$_POST)) {echo $_POST["title"];}else{ echo "";}?>" class='form-control'>
-          <label for="post_type"> Type of post: </label>
-          <select name="post_type" class='form-control' id="">
-              <option value="blog">Blog</option>
-              <option value="project">Project</option>
-            </select><br>
-          <textarea name="post_text" id="TextArea">
-          <?php
-            if (array_key_exists("isPreview",$_POST)) {
-            echo $_POST["post_text"];
-            }else{
-              echo "Welcome to TinyMCE!";
-            }
-          ?>
-          
-          </textarea>
-          <label for="isDraft">Save as draft <input type="checkbox" name="isDraft" value="" ></label><br>
-          <label for="isPreview">Preview Post <input type="checkbox" name="isPreview" value="" ></label><br>
+          <label for="description">Project Description</label><input type="text" name="description" class='form-control'>
           <input type="submit" class='btn btn-primary'>
           </div>
         </form>

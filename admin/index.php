@@ -21,23 +21,24 @@ require "../static/connection.php";
       </div>
       <div class="col-sm-10 " id="">
         <div class='text-center h1'>Project posts</div>
-        <a href='newPost.php'>Add New Post</a>
+        <a href='projectposts/newPost.php'>Add New Post</a><br><a href='projectposts/newProject.php'>Add New project</a>
         <table class="table">
           <thead>
               <tr>
                   <th>title</th>
+                  <th>Project<th>
                   <th>Edit</th>
                   <th>Delete</th>
               </tr>
           </thead>
           <tbody>
         <?php
-            $sql = "SELECT * FROM post where post_type = 'project';";
+            $sql = "SELECT * FROM projectpost;";
             try {
                 $Statement = $db->prepare($sql);
                 $Statement->execute();
                 while ($row = $Statement->fetch()) {
-                  echo "<tr><td scope='row'>". $row['title']. "</td><td><a href='editPost.php?id=".$row['id']."'>Edit</a></td><td><a href='delPost.php?id=".$row['id']."'>Delete</a></td></tr>";
+                  echo "<tr><td scope='row'>". $row['title']. "</td><td>Project: ".$row['project']."</td><td><a href='projectposts/editPost.php?id=".$row['id']."'>Edit</a></td><td><a href='projectposts/delPost.php?id=".$row['id']."'>Delete</a></td></tr>";
                 }
             } catch (PDOException $ex) {
                 echo '<p>Unable to obtain posts</p>';
@@ -61,7 +62,7 @@ require "../static/connection.php";
       </div>
       <div class="col-sm-10 " id="">
         <div class='text-center h1'>Blog posts</div>
-        <a href='newPost.php'>Add New Post</a>
+        <a href='blogposts/newPost.php'>Add New Post</a>
         <table class="table">
           <thead>
               <tr>
@@ -72,12 +73,12 @@ require "../static/connection.php";
           </thead>
           <tbody>
         <?php
-            $sql = "SELECT * FROM post where post_type = 'blog';";
+            $sql = "SELECT * FROM blogpost;";
             try {
                 $Statement = $db->prepare($sql);
                 $Statement->execute();
                 while ($row = $Statement->fetch()) {
-                  echo "<tr><td scope='row'>". $row['title']. "</td><td><a href='editPost.php?id=".$row['id']."'>Edit</a></td><td><a href='delPost.php?id=".$row['id']."'>Delete</a></td></tr>";
+                  echo "<tr><td scope='row'>". $row['title']. "</td><td><a href='blogposts/editPost.php?id=".$row['id']."'>Edit</a></td><td><a href='blogposts/delPost.php?id=".$row['id']."'>Delete</a></td></tr>";
                 }
             } catch (PDOException $ex) {
                 echo '<p>Unable to obtain posts</p>';

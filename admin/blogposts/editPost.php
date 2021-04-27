@@ -1,12 +1,12 @@
 <?php
-require 'session.php';
+require '../session.php';
 if (!isset($_SESSION['id'])){
   header("Location:login.php");
 }
-include_once 'template.html';
-require_once '../static/connection.php';
+include_once '../sub_template.html';
+require_once '../../static/connection.php';
 $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
-$sql = 'SELECT * FROM post WHERE id =?';
+$sql = 'SELECT * FROM blogpost WHERE id =?';
 try {
     $Statement = $db->prepare($sql);
     $Statement->bindParam(1, $id);
@@ -62,13 +62,9 @@ $(document).on('focusin', function(e) {
           <label for="title">Title: </label>
           <input type="text" name="title" value="<?php echo $row['title'];?>" class='form-control'>
           <label for="post_type"> Type of post: </label>
-          <select name="post_type" class='form-control' id="">
-              <option value="blog">Blog</option>
-              <option value="project">Project</option>
-            </select><br>
           <textarea name="post_text" id="TextArea">
           <?php
-            echo $row['post_text'];
+            echo $row['content'];
           ?>
           
           </textarea>

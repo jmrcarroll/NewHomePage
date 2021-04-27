@@ -6,7 +6,7 @@ if (!isset($_SESSION['id'])){
 include_once '../sub_template.html';
 require_once '../../static/connection.php';
 $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
-$sql = 'SELECT * FROM blogpost WHERE id =?';
+$sql = 'SELECT * FROM projectpost WHERE id =?';
 try {
     $Statement = $db->prepare($sql);
     $Statement->bindParam(1, $id);

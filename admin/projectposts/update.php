@@ -5,7 +5,7 @@ if (!isset($_SESSION['id'])){
 }
 require_once '../../static/connection.php';
 $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
-$sql = 'UPDATE blogpost SET title = ?, content=? WHERE id =?';
+$sql = 'UPDATE projectpost SET title = ?, content=? WHERE id =?';
 try {
     $Statement = $db->prepare($sql);
     $Statement->bindParam(1, filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING));

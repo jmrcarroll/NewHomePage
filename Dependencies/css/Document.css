@@ -1,0 +1,33 @@
+body{
+    background: #aaaaaa;
+}
+
+.pg{
+    margin: 40px auto 0;
+    page-break-after: always;
+    page-break-inside: avoid;
+    background: #ffffff;
+}
+
+.pg-portrait
+{
+    width: 21cm;
+    height: 29.7cm;
+}
+.pg-landscape
+{
+    width: 29.7cm;
+    height: 21cm;
+}
+
+@page{
+    size: A4;
+    margin: 0;
+}
+
+@media print
+{
+    .pg-landscape{
+        transform: rotateX(270deg);
+    }
+}

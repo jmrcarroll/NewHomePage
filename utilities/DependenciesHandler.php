@@ -12,7 +12,7 @@ class DependenciesHandler
 
     public static function requireJS()
     {
-        return "<script src='/Dependencies/requireja/require.js'></script>";
+        return "<script src='/Dependencies/requirejs/require.js'></script>";
     }
 
     public static function jQuery()

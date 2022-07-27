@@ -6,7 +6,6 @@ class DependenciesHandler
     public static function Bootstrap()
     {
         return "<link rel='stylesheet' type='text/css' href='/Dependencies/bootstrap/css/bootstrap.css'>
-            <script type='javascript' src='/Dependencies/bootstrap/js/bootstrap.bundle.js'></script>
             <script type='module'>import * as bootstrap from '/Dependencies/bootstrap/js/bootstrap.bundle.js';window.bootstrap = bootstrap;</script>";
     }
 

@@ -35,9 +35,27 @@ class Databases{
 
         foreach ($parameters as $item)
         {
-            $temp = self::SecureString($item);
-            $Statement->bindParam($i, $temp);
+            $type = gettype($item);
+
+            switch ($type){
+                case "integer":
+                    $type = PDO::PARAM_INT;
+                    break;
+                case "boolean":
+                    $type = PDO::PARAM_BOOL;
+                    break;
+                case "NULL":
+                    $type = PDO::PARAM_NULL;
+                    break;
+                default:
+                    $type = PDO::PARAM_STR;
+                    break;
+            }
+            $Statement->bindValue($i,$item,$type);
+
+
             $i++;
+
         }
 
         return $Statement;

@@ -12,7 +12,9 @@ class Databases{
     {
         try {
             $this->MainDB= new PDO(self::DBHost."dbname=jmrcarroll", self::user, self::pass);
+            //$this->MainDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
             $this->MainDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
             //echo "Connected to database.";
         }
         catch (PDOException $ex)

@@ -5,31 +5,33 @@ class Databases{
     private const user = '';
     private const pass = '';
 
+    //Each DB is a property
     private PDO $MainDB;
 
     //Establish connection
     public function __construct()
     {
         try {
+            //define each DB name in the constructor.
             $this->MainDB= new PDO(self::DBHost."dbname=jmrcarroll", self::user, self::pass);
-            //$this->MainDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
+            //$this->MainDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT); //enable this before production
             $this->MainDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             //echo "Connected to database.";
         }
         catch (PDOException $ex)
         {
-            echo "connection Failed: \n" . $ex;
+            echo "connection Failed: \n" . $ex; //disable this before deploy
         }
     }
 
-//Secures string
+    //Secures string
     public static function SecureString($string)
     {
         return htmlspecialchars(stripslashes((trim($string))));
     }
 
-//Refactoring of common parts of Query building
+    //Refactoring of common parts of Query building
     private static function prepareStatement($con, $sql, $parameters = array())
     {
         $Statement = $con->prepare($sql);
@@ -196,6 +198,4 @@ class Databases{
         return $this->MainDBGetSingle($sql, $parameters);
     }
 }
-
-
-
+?>

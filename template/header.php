@@ -22,26 +22,19 @@ if(!isset($NavOption)) $NavOption = "Home";
     <style>
     </style>
 </head>
+<body>
 <header class="bg-secondary">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <ul class="nav nav-pills justify-content-end">
-                    <li class="nav-item">
-                        <a class="nav-link active">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link">Blog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link">Projects</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link">Contact</a>
-                    </li>
-                </ul>
-            </div>
+    <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand mx-auto mx-lg-3">John Carroll</a>
+        <button class="navbar-toggler p-0 border-0" data-bs-target="#MainNav" data-bs-toggle="collapse"><span class="navbar-toggler-icon"></span></button>
+        <div id="MainNav" class="navbar-collapse collapse ">
+            <ul class="navbar-nav nav justify-content-end me-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link <?= ($NavOption ==="Home") ? "active":"" ?>" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link <?= ($NavOption ==="Blog") ? "active":"" ?>" href="/blog/">Blog</a></li>
+                <li class="nav-item"><a class="nav-link <?= ($NavOption ==="Project") ? "active":"" ?>" href="/projects/">Projects</a></li>
+            </ul>
         </div>
     </div>
+    </nav>
 </header>
-<body>

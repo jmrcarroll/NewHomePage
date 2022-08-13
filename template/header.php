@@ -31,6 +31,7 @@ if(!isset($NavOption)) $NavOption = "Home";
         <div id="MainNav" class="navbar-collapse collapse ">
             <ul class="navbar-nav nav justify-content-end me-auto mb-2 mb-lg-0">
                 <li class="nav-item"><a class="nav-link <?= ($NavOption ==="Home") ? "active":"" ?>" href="/">Home</a></li>
+                <?= ($NavOption ==="Admin") ? "<li class='nav-item'><a class='nav-link active' href='/admin/'>Admin</a></li>":"" ?>"
                 <li class="nav-item"><a class="nav-link <?= ($NavOption ==="Blog") ? "active":"" ?>" href="/blog/">Blog</a></li>
                 <li class="nav-item"><a class="nav-link <?= ($NavOption ==="Project") ? "active":"" ?>" href="/projects/">Projects</a></li>
             </ul>

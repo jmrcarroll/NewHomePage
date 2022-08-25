@@ -15,4 +15,20 @@ class Authentication
         $passwordString = substr($base64str,rand(0,(strlen($base64str)-24)),$length); //select a random substring of 12 character from within
         return str_replace(['/','+','='],['*','%','!'],$passwordString); //since base64 can have +,=,/ we will remove them
     }
+
+    public static function loggedin($session, $cookie)
+    {
+        if(isset($session['username'])){
+
+            return true;
+        }
+
+        if(isset($cookie['loginData'])){
+
+
+            return  true;
+        }
+
+        return false;
+    }
 }

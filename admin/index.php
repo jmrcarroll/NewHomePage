@@ -1,8 +1,7 @@
 <?php
-$title = "Admin | John Carroll";
-$NavOption = "Admin";
-include_once($_SERVER['DOCUMENT_ROOT']."/utilities/DependenciesHandler.php");
-include_once($_SERVER['DOCUMENT_ROOT'] . "/template/header.php");
+$title = "Home | Admin | John Carroll";
+
+include_once($_SERVER['DOCUMENT_ROOT'] . "/template/admin_header.php");
 ?>
     <div class="container">
         <div class="mb-auto">

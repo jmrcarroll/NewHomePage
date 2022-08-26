@@ -33,4 +33,11 @@ class DependenciesHandler
         return "<script src='/Dependencies/js/document.js'></script>".
             "<link rel='stylesheet' type='text/css' href='/Dependencies/css/Document.css'>";
     }
+
+    public static function FontAwesome()
+    {
+        return '<link href="/Dependencies/fontawesome/css/all.css" rel="stylesheet">'
+        . '<link href="/Dependencies/fontawesome/css/v5-font-face.css" rel="stylesheet">'
+        . '<link href="/Dependencies/fontawesome/css/v4-font-face.css" rel="stylesheet">';
+    }
 }

@@ -18,6 +18,7 @@ if(!isset($NavOption)) $NavOption = "Home";
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= $title ?></title>
     <?= DependenciesHandler::Bootstrap();?>
+    <?= DependenciesHandler::FontAwesome(); ?>
     <?= DependenciesHandler::jQuery();?>
     <style>
     </style>
@@ -29,11 +30,13 @@ if(!isset($NavOption)) $NavOption = "Home";
         <a class="navbar-brand mx-auto mx-lg-3">John Carroll</a>
         <button class="navbar-toggler p-0 border-0" data-bs-target="#MainNav" data-bs-toggle="collapse"><span class="navbar-toggler-icon"></span></button>
         <div id="MainNav" class="navbar-collapse collapse ">
-            <ul class="navbar-nav nav justify-content-end me-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav nav justify-content-end me-auto mb-2 mb-lg-0 text-end ">
                 <li class="nav-item"><a class="nav-link <?= ($NavOption ==="Home") ? "active":"" ?>" href="/">Home</a></li>
                 <?= ($NavOption ==="Admin") ? "<li class='nav-item'><a class='nav-link active' href='/admin/'>Admin</a></li>":"" ?>
                 <li class="nav-item"><a class="nav-link <?= ($NavOption ==="Blog") ? "active":"" ?>" href="/blog/">Blog</a></li>
                 <li class="nav-item"><a class="nav-link <?= ($NavOption ==="Project") ? "active":"" ?>" href="/projects/">Projects</a></li>
+                <li class="nav-item"><a class="nav-link" href="https://github.com/jmrcarroll" target="_blank"><i class="fa-brands fa-github"></i></a></li>
+                <li class="nav-item"><a class="nav-link"  href='https://www.linkedin.com/in/john-carroll-a88022198/' target="_blank"> <i class="fa-brands fa-linkedin" aria-hidden="true"></i></a></li>
             </ul>
         </div>
     </div>

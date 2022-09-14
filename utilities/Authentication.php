@@ -31,4 +31,17 @@ class Authentication
 
         return false;
     }
+
+    public static function Authenticate($Username, $Password)
+    {
+
+        $DB = new Databases();
+        $results = $DB->execMainQuerySingleRes("SELECT * FROM `Users` where `un` = '$Username'");
+        if($results){
+            return self::verifyPassword($Password, $results['hash']);
+        }else{
+            return false;
+        }
+
+    }
 }

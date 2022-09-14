@@ -22,5 +22,20 @@ class Functions{
     }
 
 
+    /**
+     *
+     * Function to automatically secure an array.
+     * @param array $array
+     * @return array
+     */
+    public static function secureArray(array $array): array
+    {
+        $securedArray = [];
+        foreach ($array as $key =>$value){
+            $securedArray[$key] = Databases::SecureString($value);
+        }
+        return $securedArray;
+    }
+
 
 }

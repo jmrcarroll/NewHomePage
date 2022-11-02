@@ -23,7 +23,7 @@ class Authentication
             return true;
         }
 
-        if(isset($cookie['loginData'])){
+        if(isset($cookie['LoginToken'])){
 
 
             return  true;
@@ -37,11 +37,27 @@ class Authentication
 
         $DB = new Databases();
         $results = $DB->execMainQuerySingleRes("SELECT * FROM `Users` where `un` = '$Username'");
-        if($results){
-            return self::verifyPassword($Password, $results['hash']);
+        if(is_array($results) && count($results)>0){
+            if(self::verifyPassword($Password, $results['hash'])){
+                if(session_status() === PHP_SESSION_NONE) session_start();
+                $_SESSION['userToken'] = $results['token'];
+            }
+            return true;
         }else{
             return false;
         }
 
+    }
+
+    public static function Remember($userToken)
+    {
+        $DB = new Databases();
+        $results = $DB->execMainQuerySingleRes("SELECT * FROM `users` where `token` = '$userToken'");
+        if(is_array($results) && count($results)>0){
+            $rememberToken = self::generatePassword(100);
+            $DB->execMainQuery("INSERT INTO `rememberToken`(`user`,`loginToken`)values('{$results['id']}','$rememberToken')")
+            setcookie('LoginToken',$rememberToken,604800); //set it for a week
+            return true;
+        }
     }
 }

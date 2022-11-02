@@ -1,7 +1,9 @@
 <?php
-
+    $Project = Project::getfromtkn($tkn)
 ?>
-
+<head>
+    <title><?= $Project?> | Storyboard - John Carroll</title>
+</head>
 
 <div class="container-fluid">
     <div class="row justify-content-center mt-2">

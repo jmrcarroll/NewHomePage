@@ -4,6 +4,7 @@ class Databases{
     private const DBHost = '';
     private const user = '';
     private const pass = '';
+    private const DBNameMain = '';
 
     //Each DB is a property
     private PDO $MainDB;
@@ -13,7 +14,7 @@ class Databases{
     {
         try {
             //define each DB name in the constructor.
-            $this->MainDB= new PDO(self::DBHost."dbname=jmrcarroll", self::user, self::pass);
+            $this->MainDB= new PDO("mysql:host=".self::DBHost.";dbname=".self::DBNameMain, self::user, self::pass);
             //$this->MainDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT); //enable this before production
             $this->MainDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 

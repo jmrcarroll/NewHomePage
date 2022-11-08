@@ -13,7 +13,7 @@ class Authentication
     {
         $base64str = base64_encode(openssl_random_pseudo_bytes(255)); //generate base64 string
         $passwordString = substr($base64str,rand(0,(strlen($base64str)-24)),$length); //select a random substring of 12 character from within
-        return str_replace(['/','+','='],['*','%','!'],$passwordString); //since base64 can have +,=,/ we will remove them
+        return str_replace(['/','+','='],['','',''],$passwordString); //since base64 can have +,=,/ we will remove them
     }
 
     public static function loggedin($session, $cookie)
@@ -36,11 +36,12 @@ class Authentication
     {
 
         $DB = new Databases();
-        $results = $DB->execMainQuerySingleRes("SELECT * FROM `Users` where `un` = '$Username'");
-        if(is_array($results) && count($results)>0){
-            if(self::verifyPassword($Password, $results['hash'])){
+        $exists = User::ValidateExists($Username);
+        if($exists){
+            if(self::verifyPassword($Password, $exists)){
+               $User = User::fromUserName($Username);
                 if(session_status() === PHP_SESSION_NONE) session_start();
-                $_SESSION['userToken'] = $results['token'];
+                $_SESSION['userToken'] = $User->getToken();
             }
             return true;
         }else{
@@ -55,7 +56,8 @@ class Authentication
         $results = $DB->execMainQuerySingleRes("SELECT * FROM `users` where `token` = '$userToken'");
         if(is_array($results) && count($results)>0){
             $rememberToken = self::generatePassword(100);
-            $DB->execMainQuery("INSERT INTO `rememberToken`(`user`,`loginToken`)values('{$results['id']}','$rememberToken')")
+            $expiry = date("Y-m-d",strtotime("+1 week"));
+            $DB->execMainQuery("INSERT INTO `rememberToken`(`user`,`loginToken`,expiry)values('{$results['id']}','{$rememberToken}','{$expiry}')");
             setcookie('LoginToken',$rememberToken,604800); //set it for a week
             return true;
         }

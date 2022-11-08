@@ -7,6 +7,11 @@ body{
     page-break-after: always;
     page-break-inside: avoid;
     background: #ffffff;
+    padding:0.5cm;
+}
+
+.pg:first-child{
+    margin-top: 5rem;
 }
 
 .pg-portrait
@@ -19,7 +24,11 @@ body{
     width: 29.7cm;
     height: 21cm;
 }
-
+.pg-blank{
+    background-image: url("/img/blank.png");
+    background-position:center;
+    background-repeat: no-repeat;
+}
 @page{
     size: A4;
     margin: 0;
@@ -27,7 +36,20 @@ body{
 
 @media print
 {
+    .pg{
+      background: #ffffff;
+    }
+    .pg, .pg:first-child{
+        margin:0;
+    }
+
     .pg-landscape{
-        transform: rotateX(270deg);
+        transform: rotate(270deg) translate(-29.5%,100%);
+        transform-origin: bottom left;
+    }
+    .pg-blank{
+        background-image: url("/img/blank.png");
+        background-position:center;
+        background-repeat: no-repeat;
     }
 }

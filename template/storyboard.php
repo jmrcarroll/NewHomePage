@@ -1,25 +1,38 @@
 <?php
-    $Project = Project::getfromtkn($tkn)
+    //$Project = Project::getfromtkn($tkn);
 ?>
-<head>
-    <title><?= $Project?> | Storyboard - John Carroll</title>
-</head>
+<style>
+    .TaskStage{
+        min-height: 200px;
+        padding-bottom: 50px;
+    }
+</style>
 
-<div class="container-fluid">
-    <div class="row justify-content-center mt-2">
-        <div class="col-12 text-center">Queued</div>
-        <div class="col-12 text-center">In progress</div>
-        <div class="col-12 text-center">Completed</div>
-    </div>
-    <div class="row justify-content-center">
-        <div class="col-3">
+<div class="container-fluid container-sm">
 
+    <div class="mt-5 row justify-content-center">
+        <div class="col-12 col-sm-3">
+            <div class="row">
+                <div class="col-12 text-center">Queued</div>
+                <div class="col-12 border TaskStage">
+                </div>
+            </div>
         </div>
-        <div class="col-3">
+        <div class="col-12 col-sm-3">
+            <div class="row">
+                <div class="col-12 text-center">In progress</div>
+                <div class="col-12 border TaskStage">
 
+                </div>
+            </div>
         </div>
-        <div class="col-3">
+        <div class="col-12 col-sm-3">
+            <div class="row">
+                <div class="col-12 text-center">Completed</div>
+                <div class="col-12 border TaskStage">
 
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -42,10 +42,28 @@ class User
         return new self($array);
     }
 
-    public static function fromUserName($username): self|false
+    public static function fromUserName($username)
     {
         $DB = new Databases();
         $user = $DB->execMainQuerySingleRes("SELECT * FROM `users` WHERE `username` = ?", [$username]);
+        if($user){
+            return self::Make($user);
+        }
+        return false;
+    }
+    public static function fromID($ID)
+    {
+        $DB = new Databases();
+        $user = $DB->execMainQuerySingleRes("SELECT * FROM `users` WHERE `ID` = ?", [$ID]);
+        if($user){
+            return self::Make($user);
+        }
+        return false;
+    }
+    public static function fromToken($Token)
+    {
+        $DB = new Databases();
+        $user = $DB->execMainQuerySingleRes("SELECT * FROM `users` WHERE `token` = ?", [$Token]);
         if($user){
             return self::Make($user);
         }

@@ -8,21 +8,41 @@ $NavOption = "Admin";
 if(isset($_POST['submit']))
 {
    $form = Functions::secureArray($_POST);
-   if(Authentication::Authenticate($form['Username'],$form['Password']))
+   if(Authentication::Authenticate($form['username'],$form['password']))
    {
        if(session_status() === PHP_SESSION_NONE) session_start();
        if(isset($form['remember'])) Authentication::Remember($_SESSION['userToken']);
        Functions::redirect('/admin/index.php');
+   }else{
+       $alert = true;
    }
 }
 include_once($_SERVER['DOCUMENT_ROOT'] . "/utilities/DependenciesHandler.php");
 include_once($_SERVER['DOCUMENT_ROOT'] . "/template/header.php");
 ?>
     <div class="container">
+
         <div class="mt-5 justify-content-center">
-            <div class="col-12 text-center">
-                <p class="h2">Log in </p>
+            <?php
+            if(isset($alert)){
+            ?>
+            <div class="row justify-content-center">
+                <div class="col-6">
+                    <div class="alert alert-warning text-center">
+                        <p>Unable to login.</p>
+                    </div>
+                </div>
             </div>
+            <?php
+            }
+
+            ?>
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p class="h2">Log in </p>
+                </div>
+            </div>
+
         </div>
         <form method="post">
             <div class="row justify-content-center">

@@ -1,5 +1,8 @@
 <?php
 
+include_once($_SERVER['DOCUMENT_ROOT']."/Classes/User.php");
+include_once($_SERVER['DOCUMENT_ROOT']."/utilities/DB.php");
+
 class Authentication
 {
 
@@ -18,15 +21,14 @@ class Authentication
 
     public static function loggedin($session, $cookie)
     {
-        if(isset($session['username'])){
+        if(isset($session['userToken'])){
 
-            return true;
+            return User::fromToken($session['userToken']);
         }
 
         if(isset($cookie['LoginToken'])){
 
-
-            return  true;
+            return User::fromToken($cookie['LoginToken']);
         }
 
         return false;
@@ -34,7 +36,6 @@ class Authentication
 
     public static function Authenticate($Username, $Password)
     {
-
         $DB = new Databases();
         $exists = User::ValidateExists($Username);
         if($exists){
@@ -42,12 +43,12 @@ class Authentication
                $User = User::fromUserName($Username);
                 if(session_status() === PHP_SESSION_NONE) session_start();
                 $_SESSION['userToken'] = $User->getToken();
+                return true;
             }
-            return true;
         }else{
             return false;
         }
-
+        return false;
     }
 
     public static function Remember($userToken)

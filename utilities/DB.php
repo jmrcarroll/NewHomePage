@@ -1,28 +1,87 @@
 <?php
-class Databases{
 
-    private const DBHost = '';
-    private const user = '';
-    private const pass = '';
-    private const DBNameMain = '';
+class DBHandler extends Databases
+{
+    //singleton property
+    private self $DBHandler;
 
+    private const DBHost = self::DBHost;
+    private const user = self::user;
+    private const pass = self::pass;
+
+    private const DBNames = [
+        "MainDB" => "jmrcarroll",
+    ];
+    
     //Each DB is a property
     private PDO $MainDB;
 
-    //Establish connection
-    public function __construct()
-    {
-        try {
-            //define each DB name in the constructor.
-            $this->MainDB= new PDO("mysql:host=".self::DBHost.";dbname=".self::DBNameMain, self::user, self::pass);
-            //$this->MainDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT); //enable this before production
-            $this->MainDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    private Function __construct(){
+        self::CreateConnection(self::DBNames);
+    }
 
-            //echo "Connected to database.";
+    public static function InitialiseHandler(){
+        if(!isset($this->DBHandler)) $this->DBHandler = new DBHandler();
+        return $this->DBHanlder;
+    }
+
+    public function execMainQuery($sql,$parameters = array())
+    {
+        $sqlType = explode(" ", $sql);
+
+        switch (strtoupper($sqlType[0])){
+            CASE "SELECT": $res = self::getAll($this->MainDB, $sql,$parameters); break;
+            CASE "UPDATE": $res = self::update($this->MainDB, $sql,$parameters); break;
+            CASE "INSERT": $res = self::insert($this->MainDB, $sql,$parameters); break;
+            DEFAULT: $res = false; break;
+        }
+        return $res;
+    }
+    
+    public function execMainQuerySingleRes($sql, $parameters = array())
+    {
+        return self::getSingle($this->MainDB, $sql,$parameters );
+    }
+}
+
+class Databases
+{
+
+    private const DBHost = self::DBHost;
+    private const user = self::user;
+    private const pass = self::pass;
+
+
+
+    //Establish connection
+    protected function __construct()
+    {
+    }
+
+    protected function ConnectionLoop($array)
+    {
+        foreach ($array as $key => $value) {
+            $this->$key = static::CreateConnection($value);
+        }
+    }
+
+
+    protected function CreateConnection($DBName, $Host = null, $User = null, $Pass = null)
+    {
+        if(is_null($Host)) $Host = static::DBHost;
+        if(is_null($User)) $User = static::user;
+        if(is_null($Pass)) $Host = static::pass;
+
+        try {
+            $Connection = new PDO("mysql:host=".$Host.";dbname=".$DBName, $User, $Pass);
+            $Connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $Connection->setAttribute(PDO::ATTR_PERSISTENT, true);
+            return $Connection;
         }
         catch (PDOException $ex)
         {
             echo "connection Failed: \n" . $ex; //disable this before deploy
+            return false;
         }
     }
 
@@ -66,7 +125,7 @@ class Databases{
         return $Statement;
     }
 
-//CommonQueries
+    //CommonQueries
     /**
      * select all return as array of rows (also arrays) else empty array
      * @param $con
@@ -165,38 +224,5 @@ class Databases{
         }
     }
 
-    //UsersDB
-    private function MainDBGetAll($sql,$parameters = array())
-    {
-        return self::getAll($this->MainDB, $sql,$parameters);
-    }
-    private function MainDBGetSingle($sql,$parameters = array())
-    {
-        return self::getSingle($this->MainDB, $sql,$parameters );
-    }
-    private function MainDBInsert($sql,$parameters = array())
-    {
-        return self::insert($this->MainDB, $sql,$parameters);
-    }
-    private function MainDBUpdate($sql,$parameters = array()): bool
-    {
-        return self::update($this->MainDB, $sql,$parameters);
-    }
-
-    public function execMainQuery($sql,$parameters = array())
-    {
-        $sqlType = explode(" ", $sql);
-
-        switch (strtoupper($sqlType[0])){
-            CASE "SELECT": $res = $this->MainDBGetAll($sql, $parameters); break;
-            CASE "UPDATE": $res = $this->MainDBUpdate($sql, $parameters); break;
-            CASE "INSERT": $res = $this->MainDBInsert($sql, $parameters); break;
-            DEFAULT: $res = false; break;
-        }
-        return $res;
-    }
-    public function execMainQuerySingleRes($sql, $parameters = array()){
-        return $this->MainDBGetSingle($sql, $parameters);
-    }
 }
 ?>
